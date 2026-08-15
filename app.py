@@ -98,25 +98,3 @@ if __name__ == "__main__":
     gradio_app.launch(server_name="0.0.0.0", server_port=port) # Launch on 0.0.0.0 for external access in Colab
 
 print("Gradio interface defined and ready to launch.")
-
-# Set up Gradio Interface
-inputs = [
-    gr.Slider(minimum=18, maximum=100, label="Age"),
-    gr.Dropdown(["male", "female"], label="Sex"),
-    gr.Slider(minimum=10, maximum=60, label="BMI"),
-    gr.Slider(minimum=0, maximum=5, step=1, label="Children"),
-    gr.Dropdown(["yes", "no"], label="Smoker"),
-    gr.Dropdown(["northeast", "northwest", "southeast", "southwest"], label="Region")
-]
-
-outputs = gr.Number(label="Estimated Medical Charges")
-
-gradio_app = gr.Interface(fn=predict_charges, inputs=inputs, outputs=outputs,
-                         title="Medical Insurance Charges Prediction",
-                         description="Predict medical insurance charges based on personal data.")
-
-
-if __name__ == "__main__":
-    gradio_app.launch(server_name="0.0.0.0", server_port=7860) # Launch on 0.0.0.0 for external access in Colab
-
-print("Gradio interface defined and ready to launch.")
