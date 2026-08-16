@@ -1,14 +1,11 @@
 import streamlit as st
 import pandas as pd
 import joblib
-import numpy as np
 
-# Load trained model and preprocessors
+# Load model and preprocessors
 model = joblib.load("linear_reg_model.joblib")
-sex_encoder = joblib.load("label_encoder_sex.joblib")
-smoker_encoder = joblib.load("label_encoder_smoker.joblib")
-scaler = joblib.load("standard_scaler.joblib")
-
+le_sex = joblib.load("label_encoder_sex.joblib")
+le_smoker = joblib.load("label_encoder_smoker.joblib")
 
 st.set_page_config(
     page_title="Medical Insurance Charges Predictor",
@@ -17,13 +14,14 @@ st.set_page_config(
 )
 
 st.title("🏥 Medical Insurance Charges Prediction")
-st.write("Predict medical insurance charges based on personal information.")
+
+st.write("Predict estimated medical insurance charges using a trained Linear Regression model.")
 
 age = st.slider("Age", 18, 100, 30)
 
 sex = st.selectbox(
     "Sex",
-    ["Male", "Female"]
+    ["male", "female"]
 )
 
 bmi = st.number_input(
@@ -42,28 +40,37 @@ children = st.slider(
 
 smoker = st.selectbox(
     "Smoker",
-    ["No", "Yes"]
+    ["no", "yes"]
 )
 
 region = st.selectbox(
     "Region",
-    ["northeast","northwest","southeast","southwest"]
+    ["northeast", "northwest", "southeast", "southwest"]
 )
 
 if st.button("Predict Charges"):
 
-    sex_encoded = sex_encoder.transform([sex])[0]
-    smoker_encoded = smoker_encoder.transform([smoker])[0]
+    sex = le_sex.transform([sex])[0]
+    smoker = le_smoker.transform([smoker])[0]
 
     input_df = pd.DataFrame({
-        "age":[age],
-        "sex":[sex_encoded],
-        "bmi":[bmi],
-        "children":[children],
-        "smoker":[smoker_encoded],
-        "region":[region]
+        "age": [age],
+        "sex": [sex],
+        "bmi": [bmi],
+        "children": [children],
+        "smoker": [smoker],
+        "region_northwest": [0],
+        "region_southeast": [0],
+        "region_southwest": [0]
     })
+
+    if region == "northwest":
+        input_df["region_northwest"] = 1
+    elif region == "southeast":
+        input_df["region_southeast"] = 1
+    elif region == "southwest":
+        input_df["region_southwest"] = 1
 
     prediction = model.predict(input_df)
 
-    st.success(f"Estimated Medical Insurance Charges: ${prediction[0]:,.2f}")
+    st.success(f"Estimated Insurance Charges: ${prediction[0]:,.2f}")
