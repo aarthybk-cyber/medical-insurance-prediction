@@ -1,78 +1,111 @@
-# Medical Insurance Charges Prediction
+# 🏥 Medical Insurance Charges Prediction
 
-## Project Overview
+## 📌 Project Overview
 
-This project deploys a machine learning model to predict medical insurance charges based on various personal and demographic factors. The model is a Linear Regression model trained on a dataset containing age, sex, BMI, number of children, smoker status, and region.
+This project predicts annual medical insurance charges using a **Linear Regression Machine Learning Model**.
 
-The goal of this project is to provide an interactive tool for users to estimate their medical insurance charges. The solution involves:
+The application allows users to enter personal information such as age, BMI, smoking status and region to estimate insurance costs.
 
-1.  **Data Cleaning and Preprocessing**: Handling duplicates, encoding categorical features (Label Encoding for 'sex' and 'smoker', One-Hot Encoding for 'region'), and scaling numerical features ('age', 'bmi', 'charges') using `StandardScaler`.
-2.  **Model Training**: A Linear Regression model is trained on the preprocessed data.
-3.  **Model Evaluation**: The model's performance is evaluated using metrics such as R-squared, MAE, MSE, and RMSE, and through residual analysis.
-4.  **Deployment**: The trained model and preprocessors are saved and deployed as a web application using Streamlit on Render.
+---
 
-## Technologies Used
+## 🚀 Features
+
+- Interactive Streamlit Web Application
+- Linear Regression Prediction
+- One-Hot Encoding
+- Label Encoding
+- Standard Scaling
+- Professional User Interface
+- Real-time Prediction
+
+---
+
+## 🛠 Technologies Used
 
 - Python
-- Pandas
-- Scikit-learn
 - Streamlit
+- Pandas
+- NumPy
+- Scikit-Learn
 - Joblib
-- Render
 
-## Project Structure
+---
 
--   `app.py`: The main Python script that loads the model and preprocessors, handles input data preprocessing, makes predictions, and defines the Streamlit web interface.
--   `requirements.txt`: Lists all the Python libraries and their exact versions required to run the `app.py` script. This ensures a consistent environment on Render.
--   `linear_reg_model.joblib`: The saved Linear Regression model.
--   `label_encoder_sex.joblib`: The saved LabelEncoder for the 'sex' feature.
--   `label_encoder_smoker.joblib`: The saved LabelEncoder for the 'smoker' feature.
--   `standard_scaler.joblib`: The saved StandardScaler, used for scaling 'age' and 'bmi' and inverse-transforming the predicted 'charges'.
--   `README.md`: This file, providing an overview of the project and deployment instructions.
+## 📊 Dataset Features
 
-## How the Model Works
+- Age
+- Gender
+- BMI
+- Children
+- Smoker
+- Region
 
-This project utilizes a Linear Regression model to predict medical insurance charges. The model was trained on a dataset including various features like age, sex, BMI, number of children, smoker status, and region. Before training, categorical features were encoded and numerical features were scaled to ensure optimal model performance. The deployed application preprocesses new input data in the same way, makes a prediction, and then inverse transforms the predicted charges to provide an estimate in the original currency.
+Target:
 
-## How to Run Locally
+- Insurance Charges
 
-To run the Streamlit application locally before deployment:
+---
 
-1.  Ensure you have all the required libraries installed (from `requirements.txt`).
-2.  Place `app.py`, `linear_reg_model.joblib`, `label_encoder_sex.joblib`, `label_encoder_smoker.joblib`, and `standard_scaler.joblib` in the same directory.
-3.  Run `streamlit run app.py` in your terminal.
-4.  Open your web browser and go to the address displayed in the terminal (usually `http://localhost:8501`).
+## 📂 Project Structure
 
-## Deployment
+```
+medical-insurance-prediction
+│
+├── streamlit_app.py
+├── requirements.txt
+├── README.md
+├── linear_reg_model.joblib
+├── label_encoder_sex.joblib
+├── label_encoder_smoker.joblib
+├── standard_scaler.joblib
+```
 
-To deploy this project on Render, follow these steps:
+---
 
-1.  **Prepare Files**: Ensure you have `app.py`, `requirements.txt`, `linear_reg_model.joblib`, `label_encoder_sex.joblib`, `label_encoder_smoker.joblib`, `standard_scaler.joblib`, and `README.md` in your project root.
-2.  **Create a Git Repository**: Push all these files to a Git repository (e.g., GitHub, GitLab).
-3.  **Create a New Web Service on Render**: Log in to your Render account and create a new Web Service. Connect your Git repository.
-4.  **Configure Build & Start Commands**:
-    -   Build Command: `pip install -r requirements.txt`
-    -   Start Command: `streamlit run app.py`
-5.  **Environment Variables**: Render automatically sets the `PORT` environment variable, which Streamlit will use.
-6.  **Deploy**: Initiate the deployment. Render will build your service and deploy it.
+## ▶ Run Locally
 
-## Sample Prediction
+Clone repository
 
-Here's an example of how to use the Streamlit application to make a prediction:
+```
+git clone https://github.com/aarthybk-cyber/medical-insurance-prediction.git
+```
 
--   **Age**: 30
--   **Sex**: Female
--   **BMI**: 25
--   **Children**: 1
--   **Smoker**: No
--   **Region**: Southeast
+Install dependencies
 
-Upon entering these values into the Streamlit interface, the model would output an estimated medical charge, for instance, `$3500.00`. This value represents the predicted annual medical insurance cost for an individual fitting these characteristics.
+```
+pip install -r requirements.txt
+```
 
-## Live Demo
+Run
 
-[Render service link (once deployed)]
+```
+streamlit run streamlit_app.py
+```
 
-## Author
+---
 
-[Your Name or GitHub Profile]
+## 📈 Model
+
+Algorithm Used:
+
+**Linear Regression**
+
+The model was trained using:
+
+- Label Encoding
+- One Hot Encoding
+- Standard Scaling
+
+---
+
+## 🌐 Deployment
+
+The application is deployed using **Streamlit Community Cloud**.
+
+---
+
+## 👩‍💻 Author
+
+**Aarthy Balakrishnan**
+
+Machine Learning Project
