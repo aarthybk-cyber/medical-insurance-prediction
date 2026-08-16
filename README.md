@@ -1,6 +1,6 @@
 # 🏥 Medical Insurance Charges Prediction
 
-## 📌 Project Overview
+##  Project Overview
 
 This project predicts annual medical insurance charges using a **Linear Regression Machine Learning Model**.
 
@@ -8,7 +8,7 @@ The application allows users to enter personal information such as age, BMI, smo
 
 ---
 
-## 🚀 Features
+##  Features
 
 - Interactive Streamlit Web Application
 - Linear Regression Prediction
@@ -104,7 +104,7 @@ The application is deployed using **Streamlit Community Cloud**.
 
 ---
 
-## 👩‍💻 Author
+##  Author
 
 **Aarthy Balakrishnan**
 
