@@ -2,7 +2,6 @@
 # Medical Insurance Charges Prediction
 # Machine Learning Project
 # ==========================================================
-!pip install streamlit
 import streamlit as st
 import pandas as pd
 import numpy as np
