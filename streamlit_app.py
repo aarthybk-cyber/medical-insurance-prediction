@@ -242,10 +242,6 @@ with right_col:
 # Prediction Logic
 # ----------------------------------------------------------
 
-USE_INVERSE_SCALER = False
-# Change to True ONLY if your model predicts scaled charges.
-
-
 if submitted:
 
     try:
@@ -278,16 +274,33 @@ if submitted:
                 region_southwest = 1
 
             # ------------------------------------------
+            # Scale age & bmi (scaler was fit on
+            # ['age', 'bmi', 'charges'] during training,
+            # so raw age/bmi must be transformed the
+            # same way before the model sees them)
+            # ------------------------------------------
+
+            scale_input = pd.DataFrame({
+                "age": [age],
+                "bmi": [bmi],
+                "charges": [0]  # placeholder, unused by age/bmi output
+            })
+
+            scaled_values = scaler.transform(scale_input)
+            age_scaled = scaled_values[0][0]
+            bmi_scaled = scaled_values[0][1]
+
+            # ------------------------------------------
             # Create Input DataFrame
             # ------------------------------------------
 
             input_df = pd.DataFrame({
 
-                "age":[age],
+                "age":[age_scaled],
 
                 "sex":[sex_encoded],
 
-                "bmi":[bmi],
+                "bmi":[bmi_scaled],
 
                 "children":[children],
 
@@ -319,26 +332,23 @@ if submitted:
             ]
 
             # ------------------------------------------
-            # Prediction
+            # Prediction (model outputs a SCALED charge,
+            # since it was trained on scaled 'charges')
             # ------------------------------------------
 
-            prediction = model.predict(input_df)[0]
+            prediction_scaled = model.predict(input_df)[0]
 
             # ------------------------------------------
-            # Optional Inverse Scaling
+            # Inverse Scale back to real dollar amount
             # ------------------------------------------
 
-            if USE_INVERSE_SCALER:
+            dummy = pd.DataFrame({
+                "age": [0],
+                "bmi": [0],
+                "charges": [prediction_scaled]
+            })
 
-                dummy = np.array([
-                    [
-                        0,
-                        0,
-                        prediction
-                    ]
-                ])
-
-                prediction = scaler.inverse_transform(dummy)[0][2]
+            prediction = scaler.inverse_transform(dummy)[0][2]
 
         # --------------------------------------------------
         # Prediction Card
